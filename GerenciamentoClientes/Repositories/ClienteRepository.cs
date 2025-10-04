@@ -25,4 +25,39 @@ public class ClienteRepository
             }
         }
     }
+    public List<Cliente> Listar()
+    {
+        var listaDeClientes = new List<Cliente>();
+    
+        using (var conexao = new SqlConnection(_connectionString))
+        {
+            conexao.Open();
+        
+            var sql = "SELECT Id, Nome, Email, Telefone FROM Cliente";
+
+            using (var comando = new SqlCommand(sql, conexao))
+            {
+
+                using (var leitor = comando.ExecuteReader())
+                {
+                    while (leitor.Read())
+                    {
+
+                        var cliente = new Cliente();
+
+
+                        cliente.Id = leitor.GetInt32(0); // Coluna 0 (Id)
+                        cliente.Nome = leitor.GetString(1); // Coluna 1 (Nome)
+                        cliente.Email = leitor.GetString(2); // Coluna 2 (Email)
+                        cliente.Telefone = leitor.GetString(3); // Coluna 3 (Telefone)
+
+
+                        listaDeClientes.Add(cliente);
+                    }
+                }
+            }
+        }
+        return listaDeClientes;
+    }
 }
+
