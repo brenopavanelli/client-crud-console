@@ -5,7 +5,7 @@ namespace GerenciamentoClientes.Repositories;
 
 public class ClienteRepository
 {
-    private readonly string _connectionString = "Server=PCPAVAS;Database=COMERCIODB;Trusted_Connection=True;";
+    private readonly string _connectionString = "Server=PCPAVAS;Database=COMERCIODB;Trusted_Connection=True;TrustServerCertificate=True;";
     
     public void Inserir(Cliente cliente) // Recebe um objeto Cliente (a planta baixa preenchida) e o salva no banco de dados.
     {
@@ -78,7 +78,7 @@ public class ClienteRepository
         }
     }
 
-    public void Excluir(int id) // Recebe um id e elimina o cliente com o respectivo id
+    public void Deletar(int id) // Recebe um id e elimina o cliente com o respectivo id
     {
         using (var conexao = new SqlConnection(_connectionString))
         {
